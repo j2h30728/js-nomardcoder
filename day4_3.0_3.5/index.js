@@ -36,12 +36,14 @@ const handleWindowOnline = () => {
 };
 
 const handleTitle2Click = () => {
-  const clickedClass = "clicked";
-  if (title2.className === clickedClass) {
-    title2.className = "";
-  } else {
-    title2.className = clickedClass;
-  }
+  title2.classList.toggle("active");
+  //   const clickedClass = "clicked";
+  console.log(title2.classList);
+  //   if (title2.classList.contains(clickedClass)) {
+  //     title2.classList.remove();
+  //   } else {
+  //     title2.classList.add(clickedClass);
+  //   }
 };
 //title의 클릭을 listen 하고, click event가 발생하면, handleTitleClick 함수가 동작함
 title.addEventListener("click", handleTitleClick);

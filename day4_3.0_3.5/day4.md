@@ -248,6 +248,8 @@ h1.addEventListener("click", handleTitleClick);
 
 ### 3.7 CSS in Javascript part Two
 
+#### ClassName
+
 ```html
 <h1 class="font">CSS in Javascript part</h1>
 ```
@@ -263,13 +265,32 @@ const handleTitle2Click = () => {
 };
 ```
 
-- class의
+- 클릭하는 순간 `class="font"` 에서 `class="clicked"` 로 교체 됨
+- class name을 변경하지않고 임의로 추가하고 제거 하고 싶음
 
 ### 3.8 CSS in Javascript part Three
 
+#### classList('class name')
+
+- 명시한 class가 HTML element의 class포함되어있는지 알려주는 함수
+- element의 class 내용물을 조작하는 것을 허용함
+- `classList.remove('class name')` : 지정하는 'class name' 삭제
+  - `class name` 이 빈칸이면 메서드는 동작하지 않음
+- `classList.add('class name')` : 지정하는 'class name' 추가
+
+```js
+const handleTitle2Click = () => {
+  const clickedClass = "clicked";
+  console.log(title2.classList);
+  if (title2.classList.contains(clickedClass)) {
+    title2.classList.remove(clickedClass); // 삭제
+  } else {
+    title2.classList.add(clickedClass); //추가
+  }
+};
 ```
 
-```
+- `classList.toogle('class name')` 'class name'을 토글형식으로 추가 제거함
 
 #### day4 챌린지 과제 : [cond sandbox](https://codesandbox.io/s/jscaelrinji-4day-day-three-blueprint-hfbhkx)
 
