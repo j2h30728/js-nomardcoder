@@ -1,6 +1,5 @@
 const title = document.querySelector("div.hello:first-child h1");
 const title2 = document.querySelector("div.hello :nth-child(2)");
-console.log(title2);
 // const classTest = document.getElementsByClassName("test");
 // console.log(classTest);
 // title.style.color = "blue"; // title 색상변경
@@ -37,14 +36,12 @@ const handleWindowOnline = () => {
 };
 
 const handleTitle2Click = () => {
-  const currentColor = title2.style.color;
-  let newColor;
-  if (currentColor === "blue") {
-    newColor = "tomato";
+  const clickedClass = "clicked";
+  if (title2.className === clickedClass) {
+    title2.className = "";
   } else {
-    newColor = "blue";
+    title2.className = clickedClass;
   }
-  title2.style.color = newColor;
 };
 //title의 클릭을 listen 하고, click event가 발생하면, handleTitleClick 함수가 동작함
 title.addEventListener("click", handleTitleClick);

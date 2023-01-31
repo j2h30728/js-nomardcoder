@@ -248,8 +248,36 @@ h1.addEventListener("click", handleTitleClick);
 
 ### 3.7 CSS in Javascript part Two
 
+```html
+<h1 class="font">CSS in Javascript part</h1>
+```
+
+```js
+const handleTitle2Click = () => {
+  const clickedClass = "clicked";
+  if (title2.className === clickedClass) {
+    title2.className = "";
+  } else {
+    title2.className = clickedClass;
+  }
+};
+```
+
+- class의
+
 ### 3.8 CSS in Javascript part Three
 
 ```
 
 ```
+
+#### day4 챌린지 과제 : [cond sandbox](https://codesandbox.io/s/jscaelrinji-4day-day-three-blueprint-hfbhkx)
+
+**조건**
+[x] 마우스가 title위로 올라가면 텍스트가 변경되어야 합니다.
+[x] 마우스가 title을 벗어나면 텍스트가 변경되어야 합니다.
+[x] 브라우저 창의 사이즈가 변하면 title이 바뀌어야 합니다.
+[x] 마우스를 우 클릭하면 title이 바뀌어야 합니다.
+[x] title의 색상은 colors 배열에 있는 색을 사용해야 합니다.
+[x] .css 와 .html 파일은 수정하지 마세요.
+[x] 모든 함수 핸들러는 superEventHandler내부에 작성해야 합니다.
