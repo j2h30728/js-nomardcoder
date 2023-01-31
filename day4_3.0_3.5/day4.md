@@ -39,12 +39,13 @@ console.dir(title); // element를 더 자세하게 보여줌
 
 **`console.dir(title)`**
 
+- JavaScript는 (document.getElementById를 이용해서) HTML element를 가지고 오지만, HTML 자체를 보여주지는 않음.
+- `document`라는 HTML을 표현하는 object를 보여줄 뿐 임
+
 - `innerHTML : "Grab me!"`
 - `outerHTML : "<h1 id="title">Grab me!</h1>"`
 - `innterText : "Grab me!"`
   HTML을 가지고오지만 동작은 javascript에서 작동 시킴
-  Javascript는 HTML element를 가지고 오지만, HTML 자체를 보여주지는 않음
-  `document`라는 HTML을 표현하는 object를 보여줄 뿐 임
 
 ```HTML
 <!-- index.html -->
@@ -61,4 +62,194 @@ title.innerText = "Got you!";
 
 console.log(title.id); // title
 console.log(title.className); //hello
+```
+
+### 3.2 Searching For Elements
+
+#### HTML에서 element를 가지고 오는 방법들
+
+##### 1) getElementById('id')
+
+- id 를 이용해 element를 찾음
+- 여러 element들 중에 원하는 element를 하나만 가지고 올 수 있음
+- 그 element에서 어떤 것이든 가져올 수 있으며, element의 항목들도 변경할 수 있음
+  - className을 가져오거나 추가 가능
+  - text를 가져오거나 변경 가능
+
+```js
+//index.js
+const title = document.getElementById("title");
+//: Javascript id="title"을 가진 태그를 가져옴
+```
+
+- 만약 'title'를 id 값으로 가지는 element가 없을 경우, null이 됨
+- null 값인 상태로 `title.innerText = "Got you!"` 함수를 사용할 경우, ['title'이 존재하지 않으니 title내부의 innerText를 호출하지 마십시오]라는 에러가 뜸
+  (null varable의 innerText property는 변경할 수 없음)
+
+##### 2) getElementsByClassName('className')
+
+- class Naame 를 이용해 element를 찾음
+- 반환값으로는 해당하는 className을 가진 element들의 array 임
+- 소괄호 안에 className을 작성하므로 그것을 넘겨준다는 것을 암
+
+```HTML
+<!-- index.html -->
+<h1 className="hello" id="title">Grab me!</h1>
+```
+
+```js
+//index.js
+const title = document.getElemenstByClassName("hello");
+//: Javascript className="hello"을 가진 태그를 가져옴
+```
+
+##### 3) querySelecotor
+
+- element를 CSS 방식으로 검색할 수 있음
+  - class : 앞에 . 을 추가
+  - id : 앞에 # 을 추가
+- selector안의 조건에 부합하는 element가 여러개가 해당될 경우, 오직 첫 번째의 element만 가져옴
+- 하위 element를 가지고 올수 있는 것이 장점 (getElementById로는 불가능함)
+
+```HTML
+<!-- index.html -->
+<h1 className="hello" id="title">Grab me!</h1>
+```
+
+```js
+//index.js
+const titleByClassName = document.querySelector(".hello");
+const titleById = document.querySelector("#title");
+```
+
+```js
+const title = document.querySelector("div.hello:first-child h1");
+// className 이 hello인 element의 자식 태그들 주에, 첫 번째 h1 태그
+```
+
+##### 4) querySelecotorAll
+
+- selector안의 조건에 부합하는 element들을 array형태로 모두 가지고옴.
+
+### 3.3 Events
+
+```js
+const title = document.querySelector("div.hello:first-child h1");
+
+console.dir(title);
+title.style.color = "blue"; //title의 색상을 파란색으로 변경
+```
+
+- event : active, hover, mouseon, mouseoff, click etc
+
+##### eventListener : event를 listen함
+
+- **addEventListener** : eventListener를 추가함
+  - 무슨 event를 listen 하고싶은지도 알려줘야 함. 모든 event가 아닌 특정한 하나의 even만 알아보고 싶기 때문
+
+```js
+const title = document.querySelector("div.hello:first-child h1");
+
+//title을 click 햇을때 무언가를 할 행동
+const handleTitleClick = () => {
+  title.innerText = "You just clicked!";
+};
+
+//title의 클릭을 listen 하고, click event가 발생하면, handleTitleClick 함수가 동작함
+title.addEventListener("click", handleTitleClick);
+```
+
+- `handleTitleClick()` : 함수를 바로 샐힝시키고 싶다
+- `handleTitleClick` : 함수를 js에 전달하고 유저가 title을 click할 경우에 js가 대신 함수를 실행시켜주면 좋겠다
+  `HTMLelement.addEventListener("listen하고 싶은 event이름", event가 발생하면 호출할 function)`
+
+### 3.4 Events part Two
+
+1. 검색어 : h1 html element mdn ; HTML 관점의 heading element
+2. [HTMLHeadingElement - Web APIs](https://developer.mozilla.org/en-US/docs/Web/API/HTMLHeadingElement) ; 자바스크립트관점의 heading element
+3. [HTMLElement 의 Events](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement#events) ; 클릭, 마우스오버 등
+4. [Element 의 Events](https://developer.mozilla.org/en-US/docs/Web/API/Element#events) ; 복사, 붙여넣기,잘라내기 등
+5. `console.dir(title)` => 결과의 property이름 앞에 on 이 붙어있다면, event listener인 것
+
+```js
+const title = document.querySelector("div.hello:first-child h1");
+
+//title을 click 햇을때 무언가를 할 행동
+const handleTitleClick = () => {
+  title.innerText = "You just clicked!";
+};
+const handleTitleMouseEnter = () => {
+  title.innerText = "The mouse is here!";
+};
+const handleTitleMouseLeave = () => {
+  title.innerText = "The mouse is gone!";
+};
+
+//title의 클릭을 listen 하고, click event가 발생하면, handleTitleClick 함수가 동작함
+title.addEventListener("click", handleTitleClick);
+title.addEventListener("mouseenter", handleTitleMouseEnter);
+title.addEventListener("mouseleave", handleTitleMouseLeave);
+```
+
+### 3.5 More Events
+
+##### 두 가지 방법
+
+1. addEventListener()를 통해서 event들을 listen할 수 있음
+   `태그.addEventListener('event', event가 일어나면 실행시키고 싶은 함수이름)`
+   - `removeEventListener`를 통해서 event listener을 제거할 수도 있음
+2. oneventName property에 eventListenr를 할당함으로써 event를 listen할 수 있음
+   `태그.'event = event가 일어나면 실행시키고 싶은 함수이름`
+
+```js
+//예시
+//1
+title.addEventListener("click", handleTitleClick);
+//2
+title.onclick = handleTitleClick;
+```
+
+```js
+//index.js
+const handleWindowRightClick = () => {
+  title.innerText = "That was right click!";
+};
+const handleWinodwResize = () => {
+  title.innerText = "You just resized!";
+};
+const handleWindowCopy = () => {
+  alert("copier!");
+};
+const handleWindowOffline = () => {
+  alert("SOS on WIFI");
+};
+const handleWindowOnline = () => {
+  alert("ALL Good!");
+};
+
+window.addEventListener("contextmenu", handleWindowRightClick); // 마우스 우클릭
+window.addEventListener("resize", handleWinodwResize); // 윈도우 창 사이즈 변경
+window.addEventListener("copy", handleWindowCopy); // 복사키 (ctrl + C)
+window.addEventListener("offline", handleWindowOffline); // wifi 연결  끊김
+window.addEventListener("online", handleWindowOnline); // wifi 연결 성공
+```
+
+### 3.6 CSS in Javascript
+
+```js
+const h1 = documeent.querySelector("div.hello:first-child h1");
+function handleTitleClick() {
+  console.log(h1.style.color); //get
+  h1.style.color = "blue"; //set
+  console.log(h1.style.color); //get
+}
+h1.addEventListener("click", handleTitleClick);
+```
+
+### 3.7 CSS in Javascript part Two
+
+### 3.8 CSS in Javascript part Three
+
+```
+
 ```
