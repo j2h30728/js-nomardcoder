@@ -16,16 +16,25 @@ const paintTodo = newTodo => {
   const content = document.createElement("span");
   content.innerText = newTodo.text;
 
+  const successBtn = document.createElement("button");
+  successBtn.innerText = "✓";
+  successBtn.addEventListener("click", handleSuccessTodo);
+
   const deleteBtn = document.createElement("button");
-  deleteBtn.innerText = "✕";
+  deleteBtn.innerText = "✗";
   deleteBtn.addEventListener("click", handleDeleteTodo);
 
   li.appendChild(content);
+  li.appendChild(successBtn);
   li.appendChild(deleteBtn);
 
   todoList.appendChild(li);
 };
 
+const handleSuccessTodo = event => {
+  const li = event.target.parentElement;
+  li.classList.toggle("success-todo");
+};
 const handleDeleteTodo = event => {
   const li = event.target.parentElement;
   li.remove();
